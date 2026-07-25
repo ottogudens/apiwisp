@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd mysqli pdo pdo_mysql zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Habilitar únicamente mpm_prefork y el módulo rewrite de Apache para evitar conflicto MPM
-RUN a2dismod mpm_event mpm_worker || true \
+# Eliminar cualquier simlink de MPM previo y forzar la activación exclusiva de mpm_prefork y rewrite
+RUN rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf \
     && a2enmod mpm_prefork rewrite
 
 # Copiar el código de la aplicación al directorio web de Apache

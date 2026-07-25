@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd mysqli pdo pdo_mysql zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Habilitar el módulo rewrite de Apache para .htaccess
-RUN a2enmod rewrite
+# Habilitar únicamente mpm_prefork y el módulo rewrite de Apache para evitar conflicto MPM
+RUN a2dismod mpm_event mpm_worker || true \
+    && a2enmod mpm_prefork rewrite
 
 # Copiar el código de la aplicación al directorio web de Apache
 COPY . /var/www/html/

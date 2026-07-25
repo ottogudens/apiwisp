@@ -33,9 +33,9 @@ require_once('./src/services/user.service.php');
 require_once('./src/services/client.service.php');
 require_once('./src/services/client_file.service.php');
 
-// cargamos las variables de entorno
+// cargamos las variables de entorno si existe .env, de lo contrario usamos las del sistema/Railway
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+$dotenv->safeLoad();
 
 // creamos el router
 $router = new \Bramus\Router\Router();

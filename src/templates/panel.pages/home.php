@@ -39,7 +39,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- RESTRICCION PARA DOCTORES | INICIO -->
-                <?php if ($_SESSION['user_tipo'] == "user") { ?>
+                <?php if (($_SESSION['user_tipo'] ?? 'user') == "user") { ?>
                     <div class="col-sm-6 col-lg-3 mb-3">
                         <div class="card bg-dark text-white">
                             <div class="card-body">
@@ -47,7 +47,7 @@
                                     <span>Slider</span>
                                     <i class="fas fa-images"></i>
                                 </h5>
-                                <p class="card-text">Total de slides: <?= $DATA['slider_total'] ?></p>
+                                <p class="card-text">Total de slides: <?= $DATA['slider_total'] ?? 0 ?></p>
                             </div>
                             <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/slider">Ver slider</a>
                         </div>
@@ -59,7 +59,7 @@
                                     <span>Redes</span>
                                     <i class="fas fa-share-alt"></i>
                                 </h5>
-                                <p class="card-text">Total de redes: <?= $DATA['social_total'] ?></p>
+                                <p class="card-text">Total de redes: <?= $DATA['social_total'] ?? 0 ?></p>
                             </div>
                             <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/social">Ver redes</a>
                         </div>
@@ -71,7 +71,7 @@
                                     <span>Horas</span>
                                     <i class="fas fa-clock"></i>
                                 </h5>
-                                <p class="card-text">Total de horarios: <?= $DATA['horas_total'] ?></p>
+                                <p class="card-text">Total de horarios: <?= $DATA['horas_total'] ?? 0 ?></p>
                             </div>
                             <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/horas">Ver horas</a>
                         </div>
@@ -83,7 +83,7 @@
                                     <span>Servicios</span>
                                     <i class="fas fa-clipboard-list"></i>
                                 </h5>
-                                <p class="card-text">Total de servicios: <?= $DATA['servicios_total'] ?></p>
+                                <p class="card-text">Total de servicios: <?= $DATA['servicios_total'] ?? 0 ?></p>
                             </div>
                             <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/servicios">Ver servicios</a>
                         </div>
@@ -95,7 +95,7 @@
                                     <span>Usuarios</span>
                                     <i class="fas fa-user"></i>
                                 </h5>
-                                <p class="card-text">Total de usuarios: <?= $DATA['user_total'] ?></p>
+                                <p class="card-text">Total de usuarios: <?= $DATA['user_total'] ?? 0 ?></p>
                             </div>
                             <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/user">Ver usuarios</a>
                         </div>
@@ -109,7 +109,7 @@
                                 <span>Clientes</span>
                                 <i class="fas fa-users"></i>
                             </h5>
-                            <p class="card-text m-auto">Total de clientes: <?= $DATA['clientes_total'] ?></p>
+                            <p class="card-text m-auto">Total de clientes: <?= $DATA['clientes_total'] ?? 0 ?></p>
                         </div>
                         <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/clientes">Ver clientes</a>
                     </div>
@@ -121,7 +121,7 @@
                                 <span>Citas</span>
                                 <i class="fas fa-calendar-alt"></i>
                             </h5>
-                            <p class="card-text">Total de citas: <?= $DATA['citas_total'] ?></p>
+                            <p class="card-text">Total de citas: <?= $DATA['citas_total'] ?? 0 ?></p>
                         </div>
                         <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/citas">Ver citas</a>
                     </div>
@@ -133,7 +133,7 @@
                                 <span>Mensajes</span>
                                 <i class="fas fa-envelope"></i>
                             </h5>
-                            <p class="card-text">Total de mensajes: <?= $DATA['mensajes_total'] ?></p>
+                            <p class="card-text">Total de mensajes: <?= $DATA['mensajes_total'] ?? 0 ?></p>
                         </div>
                         <a class="card-footer btn" href="<?= $DATA['http_domain'] ?>panel/mensajes">Ver buzon</a>
                     </div>

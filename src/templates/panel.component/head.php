@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<?= $DATA['http_domain'] ?>public/css.panel/general.css">
 
 <!-- <link rel="stylesheet" href="<?= $DATA['http_domain'] ?>public/css.panel/table.css"> -->
-<link rel="shortcut icon" href="<?= $DATA['http_domain'] ?>public/img/logo1.png?last=<?= $DATA['info']['info_last'] ?>" type="image/x-icon">
+<link rel="shortcut icon" href="<?= $DATA['http_domain'] ?>public/img/logo1.png?last=<?= $DATA['info']['info_last'] ?? '' ?>" type="image/x-icon">
 <title><?= $DATA['title'] ?></title>
 <script>
     const http_domain = '<?= $DATA['http_domain'] ?>';

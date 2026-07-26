@@ -2,141 +2,75 @@
 <html lang="es">
 
 <head>
-    <?php include('./src/templates/panel.component/head.php') ?>
-    <link rel="stylesheet" href="<?= $DATA['http_domain'] ?>public/css.panel/info.css">
+    <?php require_once('./src/templates/panel.component/head.php') ?>
+    <title>Configuración API | Panel API WISP</title>
 </head>
 
-<body>
-    <?php include('./src/templates/panel.component/header.php') ?>
-    <?php include('./src/templates/panel.component/sidebar.php') ?>
-    <main>
-        <div class="pt-4 px-md-5 px-1">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= $DATA['http_domain'] ?>/panel">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Informacion</li>
-                </ol>
-            </nav>
-            <div class="card shadow">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <b>Informacion</b>
-                    </div>
+<body class="bg-light">
+    <?php require_once('./src/templates/panel.component/header.php') ?>
+    <div class="d-flex">
+        <?php require_once('./src/templates/panel.component/sidebar.php') ?>
+        <div class="main-content w-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fa-solid fa-sliders text-primary me-2"></i>Configuración de API Mikrowisp</h2>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fa-solid fa-key me-2"></i>Credenciales de Conexión a Mikrowisp</h5>
                 </div>
-                <div class="card-body">
-                    <!-- Form ini -->
-                    <form class="needs-validation p-4" id="element-form" onsubmit="return false" editMode="false" novalidate>
+                <div class="card-body p-4">
+                    <form id="formUpdateInfo">
                         <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="validationServer01" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="validationServer01" name="info_nombre" required>
-                                <div class="invalid-feedback">
-                                    Escribe el nombre!
-                                </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Nombre del Sistema / Instancia</label>
+                                <input type="text" class="form-control" name="info_nombre" value="<?= htmlspecialchars($DATA['info']['info_nombre'] ?? 'API WISP') ?>" required>
                             </div>
-                            <div class="col-md-4">
-                                <label for="validationServer04" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="validationServer04" name="info_ciudad" required>
-                                <div class="invalid-feedback">
-                                    Escribe la ciudad!
-                                </div>
+                            <div class="col-md-12">
+                                <label class="form-label">URL de la API Mikrowisp</label>
+                                <input type="url" class="form-control" name="info_mkw_api_url" value="<?= htmlspecialchars($DATA['info']['info_mkw_api_url'] ?? '') ?>" placeholder="http://tu-mikrowisp.com/api/v1/ o https://tu-mikrowisp.com/api/v2/" required>
+                                <div class="form-text">Ejemplo v5: <code>http://167.71.189.123/api/v1/</code> | Ejemplo v6: <code>https://miwisp.com/api/v2/</code></div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="validationServer05" class="form-label">Direccion</label>
-                                <input type="text" class="form-control" id="validationServer05" name="info_direccion" required>
-                                <div class="invalid-feedback">
-                                    Escribe la direccion!
-                                </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Token / Password API Mikrowisp</label>
+                                <input type="text" class="form-control" name="info_mkw_api_token" value="<?= htmlspecialchars($DATA['info']['info_mkw_api_token'] ?? '') ?>" placeholder="Token o Contraseña API" required>
+                                <div class="form-text">En Mikrowisp v5 se ingresa la contraseña API. En Mikrowisp v6 se ingresa el API Token generado.</div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="validationServer02" class="form-label">Small Logo Dark</label>
-                                <input type="file" class="form-control" id="validationServer02" name="info_logo1">
-                                <div class="preview_img">
-                                    <img src="<?= $DATA['http_domain'] ?>public/img/logo1.png?last=<?= $DATA['info']['info_last'] ?>" alt="Preview" class="img-fluid">
-                                </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary px-4"><i class="fa-solid fa-floppy-disk me-1"></i> Guardar Configuración</button>
                             </div>
-                            <div class="col-md-4">
-                                <label for="validationServer03" class="form-label">Small Logo Light</label>
-                                <input type="file" class="form-control" id="validationServer03" name="info_logo2">
-                                <div class="preview_img light">
-                                    <img src="<?= $DATA['http_domain'] ?>public/img/logo2.png?last=<?= $DATA['info']['info_last'] ?>" alt="Preview" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer14" class="form-label">Big Logo Dark</label>
-                                <input type="file" class="form-control" id="validationServer14" name="info_logo3">
-                                <div class="preview_img">
-                                    <img src="<?= $DATA['http_domain'] ?>public/img/logo3.png?last=<?= $DATA['info']['info_last'] ?>" alt="Preview" class="img-fluid">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer06" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="validationServer06" name="info_telefono" required>
-                                <div class="invalid-feedback">
-                                    Escribe el telefono!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer07" class="form-label">Celular</label>
-                                <input type="text" class="form-control" id="validationServer07" name="info_celular" required>
-                                <div class="invalid-feedback">
-                                    Escribe el celular!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer08" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="validationServer08" name="info_email" required>
-                                <div class="invalid-feedback">
-                                    Escribe el email!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer09" class="form-label">Mapa</label>
-                                <input type="text" class="form-control" id="validationServer09" name="info_mapa" required>
-                                <div class="invalid-feedback">
-                                    Inserta un mapa!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer10" class="form-label">Filosofia</label>
-                                <textarea class="form-control" id="validationServer10" name="info_filosofia" required></textarea>
-                                <div class="invalid-feedback">
-                                    Escribe la filosofia del negocio!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer11" class="form-label">Resumen</label>
-                                <textarea class="form-control" id="validationServer11" name="info_resumen" required></textarea>
-                                <div class="invalid-feedback">
-                                    Escribe el resumen!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer12" class="form-label">Mision</label>
-                                <textarea class="form-control" id="validationServer12" name="info_mision" required></textarea>
-                                <div class="invalid-feedback">
-                                    Escribe el mision!
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="validationServer13" class="form-label">Vision</label>
-                                <textarea class="form-control" id="validationServer13" name="info_vision" required></textarea>
-                                <div class="invalid-feedback">
-                                    Escribe el vision!
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-5" id="btn-submit">Guardar</button>
                         </div>
                     </form>
-                    <!-- Form end -->
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+
+    <?php require_once('./src/templates/panel.component/foot.php') ?>
+    <script>
+        const HTTP_DOMAIN = "<?= $DATA['http_domain'] ?>";
+
+        document.getElementById('formUpdateInfo').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            try {
+                const res = await fetch(HTTP_DOMAIN + 'services/info/update', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.response) {
+                    alert('Configuración guardada correctamente.');
+                    location.reload();
+                } else {
+                    alert(data.message || 'Error al guardar la configuración.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error al conectar con el servidor.');
+            }
+        });
+    </script>
 </body>
-<foot>
-    <?php include('./src/templates/panel.component/foot.php') ?>
-    <script src="<?= $DATA['http_domain'] ?>public/js.panel/info.js"></script>
-</foot>
 
 </html>

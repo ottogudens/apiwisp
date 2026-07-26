@@ -7,6 +7,7 @@ $radapter->getHTML('/services/configuration', 'configuration');
 
 // INFO
 $radapter->post('/services/info/select', fn (...$args) => InfoService::select(...$args));
+$radapter->post('/services/info/update', fn (...$args) => InfoService::update(...$args));
 
 // USER
 $radapter->post('/services/user/login', fn (...$args) => UserService::login(...$args));

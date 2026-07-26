@@ -26,45 +26,25 @@ class InfoDao
         ];
     }
 
-    // public function update(
-    //     string $info_nombre,
-    //     string $info_filosofia,
-    //     string $info_resumen,
-    //     string $info_mision,
-    //     string $info_vision,
-    //     string $info_mapa,
-    //     string $info_direccion,
-    //     string $info_ciudad,
-    //     string $info_telefono,
-    //     string $info_celular,
-    //     string $info_email
-    // ): bool {
-    //     $info_nombre = addslashes($info_nombre);
-    //     $info_filosofia = addslashes($info_filosofia);
-    //     $info_resumen = addslashes($info_resumen);
-    //     $info_mision = addslashes($info_mision);
-    //     $info_vision = addslashes($info_vision);
-    //     $last = date("Y-m-d H:i:s");
-    //     $resultset = ($this->mysqlAdapter)->query("
-    //         UPDATE info SET     
-    //             info_nombre = '$info_nombre', 
-    //             info_filosofia = '$info_filosofia', 
-    //             info_resumen = '$info_resumen', 
-    //             info_mision = '$info_mision', 
-    //             info_vision = '$info_vision', 
-    //             info_mapa = '$info_mapa', 
-    //             info_direccion = '$info_direccion', 
-    //             info_ciudad = '$info_ciudad', 
-    //             info_telefono = '$info_telefono', 
-    //             info_celular = '$info_celular', 
-    //             info_email = '$info_email',
-    //             info_last = '$last'
-    //         ");
-    //     if ($resultset) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    public function update(
+        string $info_nombre,
+        string $info_mkw_api_url,
+        string $info_mkw_api_token
+    ): bool {
+        $info_nombre = addslashes($info_nombre);
+        $info_mkw_api_url = addslashes($info_mkw_api_url);
+        $info_mkw_api_token = addslashes($info_mkw_api_token);
+        $last = date("Y-m-d H:i:s");
+        $resultset = ($this->mysqlAdapter)->query("
+            UPDATE info SET     
+                info_nombre = '$info_nombre', 
+                info_mkw_api_url = '$info_mkw_api_url', 
+                info_mkw_api_token = '$info_mkw_api_token',
+                info_last = '$last'
+            WHERE info_id = 1
+            ");
+        return (bool)$resultset;
+    }
 
     public function schematize($row)
     {

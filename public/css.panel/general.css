@@ -1,192 +1,115 @@
-@font-face {
-    src: url('./../font.general/Oregano-Regular.ttf');
-    font-family: Oregano-Regular;
-}
-
-@font-face {
-    src: url('./../font.general/Nunito-Regular.ttf');
-    font-family: Nunito-Regular;
-}
-
 * {
-    --header-height: 45px;
+    --header-height: 55px;
     --sidebar-width: 250px;
-    --sidebar-width-minimize: 70px;
+    box-sizing: border-box;
 }
 
 body {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    grid-template-rows: var(--header-height) 1fr;
-    grid-template-areas:
-        "sidebar header"
-        "sidebar main";
-/*    overflow: hidden;*/
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f6f9;
+}
+
+/* Layout flex / responsive */
+.app-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    position: relative;
 }
 
 .header {
-    grid-area: header;
+    height: var(--header-height);
+    width: 100%;
+    z-index: 1030;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .sidebar {
-    grid-area: sidebar;
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background-color: #212529;
+    transition: all 0.3s ease;
+    z-index: 1020;
+    display: flex;
+    flex-direction: column;
 }
 
-main {
-    grid-area: main;
-    overflow-y: auto !important;
-    height: 100%;
-}
-
-.header,
-.sidebar,
-main {
+main.main-content {
+    flex: 1;
     width: 100%;
-    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Sidebar Mobile Toggle */
+@media (max-width: 991.98px) {
+    .app-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        display: none;
+    }
+    body.sidebar-show .sidebar {
+        display: flex;
+    }
 }
 
 .header .header-user-photo {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     object-fit: cover;
 }
 
 .header .dropdown-user-photo {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-}
-
-
-body.sidebar-minimize {
-    --sidebar-width: var(--sidebar-width-minimize);
-    transition: all 1s ease;
-}
-
-body.sidebar-minimize .sidebar .nav-option {
-    text-align: center !important;
-}
-
-body.sidebar-minimize .sidebar .nav-option span {
-    display: none;
-}
-
-.gift-image-modal-table {
-    width: 40px;
-    height: 30px;
-    object-fit: contain;
-}
-
-
-.checkbox {
-    position: relative;
-    display: block;
     width: 60px;
-    height: 30px;
-    border-radius: 30px;
-    border: solid 1px #ccc;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.checkbox:before {
-    position: absolute;
-    content: '';
-    top: 0;
-    bottom: 0;
-    left: 5px;
-    display: block;
-    width: calc(50% - 10px);
-    height: calc(100% - 10px);
-    margin: auto;
-    border-radius: 50%;
-    background: #ccc;
-    transition: all 0.3s ease;
-}
-
-input[value="true"] ~ .checkbox,
-input[value="1"] ~ .checkbox {
-    background: #4f93ff;
-    transition: all 0.3s ease;
-}
-
-input[value="true"] ~ .checkbox:before,
-input[value="1"] ~ .checkbox:before {
-    left: unset;
-    right: 5px;
-    background: #fff;
-    transition: all 0.3s ease;
-}
-
-
-.input-file {
-    position: relative;
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.input-file:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: attr(placeholder);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: #2fa4e7;
-    color: #ffffff;
-}
-
-.slider-img {
+    height: 60px;
     object-fit: cover;
-    object-position: center;
-    aspect-ratio: 16/9;
 }
 
-
-
-
-
-
-.input_switch {
-    display: flex;
-    border-radius: 5px;
-    border: solid 1px #ccc;
+/* Indicador de Estado de Conexión */
+.connection-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.input_switch input {
-    display: none;
+.connection-status-badge.online {
+    background-color: rgba(25, 135, 84, 0.15);
+    color: #198754;
+    border: 1px solid #198754;
 }
 
-
-.input_switch label {
-    flex: 1;
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.connection-status-badge.offline {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+    border: 1px solid #dc3545;
 }
 
-
-.input_switch input:checked + label {
-    background: #39a9e8;
-    color: #ffffff;
-    border-radius: 5px;
-    transition: all 0.2s ease;
-}
-
-.userfoto {
-    width: 50px;
+.connection-status-badge .status-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    aspect-ratio: 1/1;
-    object-fit: contain;
-    object-position: center;
-    box-shadow: 0 0 5px 0 #39a9e8;
-    background: #ffffff;
-    padding: 2px;
+    margin-right: 6px;
+}
+
+.connection-status-badge.online .status-dot {
+    background-color: #198754;
+    box-shadow: 0 0 6px #198754;
+}
+
+.connection-status-badge.offline .status-dot {
+    background-color: #dc3545;
+    box-shadow: 0 0 6px #dc3545;
 }

@@ -6,85 +6,93 @@
     <title>Expedientes y Archivos | Panel API WISP</title>
 </head>
 
-<body class="bg-light">
+<body>
     <?php require_once('./src/templates/panel.component/header.php') ?>
-    <div class="d-flex">
+    <div class="app-container">
         <?php require_once('./src/templates/panel.component/sidebar.php') ?>
-        <div class="main-content w-100 p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2><i class="fa-solid fa-folder-open text-primary me-2"></i>Archivos y Expedientes de Clientes</h2>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddFile">
-                    <i class="fa-solid fa-plus me-1"></i> Adjuntar Archivo
-                </button>
-            </div>
-
-            <!-- TABLA DE ARCHIVOS DE CLIENTES -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0"><i class="fa-solid fa-file-lines me-2"></i>Documentos Registrados</h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped mb-0">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre del Archivo</th>
-                                    <th>Descripción</th>
-                                    <th>Cliente (ID)</th>
-                                    <th>Documento Almacenado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (!empty($DATA['archivos']) && is_array($DATA['archivos'])) : ?>
-                                    <?php foreach ($DATA['archivos'] as $file) : ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($file['client_file_id'] ?? '') ?></td>
-                                            <td><strong><?= htmlspecialchars($file['client_file_name'] ?? '') ?></strong></td>
-                                            <td><?= htmlspecialchars($file['client_file_desc'] ?? '') ?></td>
-                                            <td><span class="badge bg-secondary">Cliente #<?= htmlspecialchars($file['client_id'] ?? '') ?></span></td>
-                                            <td>
-                                                <?php if (!empty($file['client_file_stored'])) : ?>
-                                                    <a href="<?= $DATA['http_domain'] ?>public/file.client_files/<?= htmlspecialchars($file['client_file_stored']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">
-                                                        <i class="fa-solid fa-download me-1"></i> Ver / Descargar
-                                                    </a>
-                                                <?php else : ?>
-                                                    <span class="text-muted">Sin archivo</span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteFile(<?= $file['client_file_id'] ?>)">
-                                                    <i class="fa-solid fa-trash"></i> Eliminar
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <tr>
-                                        <td colspan="6" class="text-center p-4 text-muted">No se han registrado archivos en los expedientes.</td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+        <main class="main-content">
+            <div class="container-fluid p-0">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
+                    <div>
+                        <h3 class="fw-bold text-dark mb-1"><i class="fa-solid fa-folder-open text-primary me-2"></i>Archivos y Expedientes de Clientes</h3>
+                        <p class="text-muted mb-0">Gestión de contratos y documentos digitales</p>
+                    </div>
+                    <div class="mt-3 mt-md-0">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddFile">
+                            <i class="fa-solid fa-plus me-1"></i> Adjuntar Archivo
+                        </button>
                     </div>
                 </div>
+
+                <!-- TABLA DE ARCHIVOS DE CLIENTES -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-file-lines text-primary me-2"></i>Documentos Registrados</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre del Archivo</th>
+                                        <th>Descripción</th>
+                                        <th>Cliente (ID)</th>
+                                        <th>Documento Almacenado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($DATA['archivos']) && is_array($DATA['archivos'])) : ?>
+                                        <?php foreach ($DATA['archivos'] as $file) : ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($file['client_file_id'] ?? '') ?></td>
+                                                <td><strong><?= htmlspecialchars($file['client_file_name'] ?? '') ?></strong></td>
+                                                <td><?= htmlspecialchars($file['client_file_desc'] ?? '') ?></td>
+                                                <td><span class="badge bg-secondary">Cliente #<?= htmlspecialchars($file['client_id'] ?? '') ?></span></td>
+                                                <td>
+                                                    <?php if (!empty($file['client_file_stored'])) : ?>
+                                                        <a href="<?= $DATA['http_domain'] ?>public/file.client_files/<?= htmlspecialchars($file['client_file_stored']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                            <i class="fa-solid fa-download me-1"></i> Ver / Descargar
+                                                        </a>
+                                                    <?php else : ?>
+                                                        <span class="text-muted">Sin archivo</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteFile(<?= $file['client_file_id'] ?>)">
+                                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center p-4 text-muted">No se han registrado archivos en los expedientes.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </main>
     </div>
 
     <!-- MODAL DE NUEVO ARCHIVO -->
     <div class="modal fade" id="modalAddFile" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
                 <form id="formAddFile" enctype="multipart/form-data">
-                    <div class="modal-header">
+                    <div class="modal-header bg-dark text-white">
                         <h5 class="modal-title"><i class="fa-solid fa-file-circle-plus me-2"></i>Adjuntar Archivo al Expediente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <div class="mb-3">
-                            <label class="form-label">Cliente</label>
+                            <label class="form-label fw-semibold">Cliente</label>
                             <select class="form-select" name="client_id" required>
                                 <option value="">Seleccione un cliente...</option>
                                 <?php if (!empty($DATA['clientes']) && is_array($DATA['clientes'])) : ?>
@@ -95,19 +103,19 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Nombre del Documento</label>
+                            <label class="form-label fw-semibold">Nombre del Documento</label>
                             <input type="text" class="form-control" name="client_file_name" placeholder="Ej. Contrato Servicio, Cédula ID" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Descripción</label>
+                            <label class="form-label fw-semibold">Descripción</label>
                             <textarea class="form-control" name="client_file_desc" rows="2" placeholder="Notas sobre el documento..."></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Seleccionar Archivo (PDF, Img, Doc)</label>
+                            <label class="form-label fw-semibold">Seleccionar Archivo (PDF, Img, Doc)</label>
                             <input type="file" class="form-control" name="client_file_stored" required>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary"><i class="fa-solid fa-upload me-1"></i> Guardar Archivo</button>
                     </div>

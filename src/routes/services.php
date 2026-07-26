@@ -28,3 +28,7 @@ $radapter->post('/services/client_file/select', fn (...$args) => ClientFileServi
 $radapter->post('/services/client_file/insert', fn (...$args) => ClientFileService::insert(...$args));
 $radapter->post('/services/client_file/update', fn (...$args) => ClientFileService::update(...$args));
 $radapter->post('/services/client_file/delete', fn (...$args) => ClientFileService::delete(...$args));
+
+// MCP SERVER ENDPOINT
+$radapter->post('/services/mcp', fn (...$args) => McpService::handleRequest(...$args));
+

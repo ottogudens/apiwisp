@@ -3,6 +3,9 @@ class ClientApi
 {
     // LISTA DE COMANDOS
     const COMANDO_GET_CLIENTS_DETAILS = 'GetClientsDetails';
+    const COMANDO_GET_INVOICES = 'GetInvoices';
+    const COMANDO_GET_TICKETS = 'GetTickets';
+    const COMANDO_SET_STATUS = 'SetClientStatus';
 
     private ApiAdapter $apiAdapter;
     public function __construct(ApiAdapter $apiAdapter)
@@ -16,7 +19,7 @@ class ClientApi
             "idcliente" => $client_id
         ]);
 
-        if (!$result) return false;
+        if (!$result || empty($result['datos'])) return false;
         return $this->schematize($result['datos'][0]);
     }
 
@@ -26,8 +29,24 @@ class ClientApi
             "cedula" => $dni
         ]);
 
-        if (!$result) return false;
+        if (!$result || empty($result['datos'])) return false;
         return $this->schematize($result['datos'][0]);
+    }
+
+    public function getInvoices(string $client_id)
+    {
+        $result = ($this->apiAdapter)->request('POST', self::COMANDO_GET_INVOICES, [
+            "idcliente" => $client_id
+        ]);
+        return $result ? ($result['datos'] ?? []) : [];
+    }
+
+    public function getTickets(string $client_id)
+    {
+        $result = ($this->apiAdapter)->request('POST', self::COMANDO_GET_TICKETS, [
+            "idcliente" => $client_id
+        ]);
+        return $result ? ($result['datos'] ?? []) : [];
     }
 
     private function schematize($row)
